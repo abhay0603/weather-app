@@ -125,6 +125,14 @@
       min-width: 70px;
     }
 
+    .clock {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    .timezone {
+      font-size: 1.2em;
+      color: #ccc;
+
     footer {
       text-align: center;
       font-size: 14px;
@@ -158,9 +166,10 @@
       <p id="temp"></p>
     </div>
     <div class="forecast" id="forecastBox"></div>
-    <footer>
-      Team Members: Abhay Kumar, Aarush Sachdeva, Tanmay Bansal, Arnav Bhatia, Mayank Singh Negi
-    </footer>
+
+    <div class="clock" id="clock">--:--:--</div>
+    <div class="timezone" id="timezone">Detecting location...</div>
+  
   </div>
 
   <script>
@@ -205,6 +214,21 @@
         .then(res => res.json())
         .then(data => fetchWeather(data.name));
     });
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString();
+      document.getElementById("clock").textContent = timeString;
+    }
+
+    function setTimeZone() {
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.getElementById("timezone").textContent = `Time Zone: ${timeZone}`;
+    }
+
+    setTimeZone();
+    updateClock();
+    setInterval(updateClock, 1000);
+
   </script>
 </body>
 </html>
