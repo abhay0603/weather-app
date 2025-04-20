@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WeatherWise Cloud</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
@@ -15,15 +14,36 @@
     }
 
     body {
+      height: 100vh;
       background: linear-gradient(to bottom, #1f1f1f, #383838);
       color: white;
-      padding: 20px;
       transition: background 0.3s;
+      position: relative;
+      overflow-x: hidden;
     }
 
     body.dark-mode {
       background: linear-gradient(to bottom, #ffffff, #e0e0e0);
       color: black;
+    }
+
+    /* Moving Cloud Background */
+    .clouds {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300%;
+      height: 100%;
+      background: url('https://www.freeiconspng.com/thumbs/rain-png/rain-clouds-png-27.png') repeat-x;
+      background-size: contain;
+      animation: moveClouds 60s linear infinite;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    @keyframes moveClouds {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .container {
@@ -47,6 +67,7 @@
       gap: 10px;
       margin-bottom: 30px;
       justify-content: center;
+      flex-wrap: wrap;
     }
 
     #searchInput {
@@ -90,15 +111,33 @@
       display: flex;
       justify-content: space-between;
       text-align: center;
+      flex-wrap: wrap;
     }
 
     .forecast div {
       flex: 1;
+      min-width: 70px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 30px;
+      padding: 10px;
+      color: #ddd;
+      backdrop-filter: blur(5px);
+    }
+
+    @media (max-width: 600px) {
+      .forecast {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
-
 <body>
+  <div class="clouds"></div>
   <button id="toggleMode">Toggle Mode</button>
   <div class="container">
     <h1>WeatherWise Cloud</h1>
@@ -113,10 +152,13 @@
       <p id="temp"></p>
     </div>
     <div class="forecast" id="forecastBox"></div>
+    <footer>
+      Team Members: Abhay Kumar, Aarush Sachdeva, Tanmay Bansal, Arnav Bhatia, Mayank Singh Negi
+    </footer>
   </div>
 
   <script>
-    const apiKey = 'ac087ecff6b85bd9f3fb64eab0b1b4b4'; // Replace with your OpenWeatherMap API key
+    const apiKey = 'Yac087ecff6b85bd9f3fb64eab0b1b4b4';
 
     const searchBtn = document.getElementById('searchBtn');
     const searchInput = document.getElementById('searchInput');
@@ -159,5 +201,4 @@
     });
   </script>
 </body>
-
 </html>
